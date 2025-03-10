@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  post '/signup', to: 'users#create'
+  post '/login', to: 'sessions#create'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:create] #user can only create 
+      
+      resources :teams do 
+        resources :players, only: [:index, :create] #nested routes for players within teams...
+      end
+    end
+  end
+  # SHOW TEAMS GET /api/v1/teams/:id
+  # CREATE TEAMS POST /api/v1/teams
+  # UPDATE TEAMS PATCH/PUT /api/v1/teams/:id
+  # DELETE  TEAMS /api/v1/teams/:id
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # SHOW PLAYERS GET /api/v1/teams/:team_id/players
+  # CREATE TEAMS POST /api/v1/teams/:team_id/players
 
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

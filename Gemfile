@@ -60,4 +60,13 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  gem 'bcrypt', '~> 3.1.7' # For hashing passwords securely
+  gem 'jwt', '~> 2.2'      # For generating JSON Web Tokens
+
+  gem 'pundit' # to help setup roles
+
+  gem 'faker'
 end
+
+#outside of this is the production 
